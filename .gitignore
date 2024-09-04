@@ -1,0 +1,62 @@
+#Allure Files
+/allure-report
+/allure-results
+gradlew
+gradlew.bat
+
+#Resultado Gherkin Octane
+/gherkin-results
+
+#Resultado Gherkin Octane
+/gherkin-results
+
+#IDEA Files
+/.idea
+.idea/*
+/out
+out/*
+/.idea/workspace.xml
+
+#Proyect Files
+/.gradle
+/gradle
+.gradle/*
+/bin
+/android-results
+/ios-results
+/web-results
+
+#Resultado Gherkin Octane
+/gherkin-results
+gherkin-results/
+gherkin-results/*
+
+#BCI Files
+driverNavegador/
+/driverNavegador
+driverNavegador/*
+apps/
+*.iml
+*.apk
+*.ipa
+*.app
+*.pdf
+/apps
+
+#Others Files
+/build
+*.zip
+*.png
+/.DS_Store
+DS_Store
+src/.DS_Store
+src/main/.DS_Store
+src/test/.DS_Store
+src/main/resources/.DS_Store
+src/test/java/.DS_Store
+src/test/java/testSuites/.DS_Store
+tmp/*.pdf
+tmp/temporalFile
+tmp/*
+tmp/*.zip
+/.gradle/
