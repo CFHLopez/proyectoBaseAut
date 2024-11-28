@@ -2,14 +2,17 @@ package steps;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import pages.pageComputers;
+import io.cucumber.java.en.When;
+import pages.page;
 
+import static constants.Constants.pruebaFront;
 import static utils.web.*;
 
 public class stepsWeb {
     @Given("Ingreso a la web {string}")
     public void ingresoALaWeb(String url) {
-        levantarWeb(url);
+        pruebaFront = true;
+        levantarWeb("Edge",url);
     }
 
     @Given("Visualizo la web {string}")
@@ -20,36 +23,51 @@ public class stepsWeb {
 
     @Given("Visualizo el titulo {string}")
     public void visualizoElTitulo(String titulo) {
-        pageComputers.pageObject().validarTitulo(titulo);
+        page.pageObject().validarTitulo(titulo);
     }
 
     @And("Visualizo el boton Filter")
     public void visualizoElBotonFilter() {
-        pageComputers.pageObject().viewClickBtn("Filter",false);
+        page.pageObject().viewClickBtn("Filter",false);
     }
 
     @And("Visualizo el boton Add")
     public void visualizoElBotonAdd() {
-        pageComputers.pageObject().viewClickBtn("Add",false);
+        page.pageObject().viewClickBtn("Add",false);
     }
 
     @And("Visualizo el filtro")
     public void visualizoElFiltro() {
-        pageComputers.pageObject().viewFiltro();
+        page.pageObject().viewFiltro();
     }
 
     @And("Visualizo la columna {string}")
     public void visualizoLaColumna(String columna) {
-        pageComputers.pageObject().validarColumnaTabla(columna);
+        page.pageObject().validarColumnaTabla(columna);
+    }
+
+    @When("Presiono la columna {string}")
+    public void presionoLaColumna(String link) {
+        page.pageObject().presionarLink(link);
     }
 
     @And("Visualizo la tabla Computers")
     public void visualizoLaTablaComputers() {
-        pageComputers.pageObject().viewTabla();
+        page.pageObject().viewTabla();
     }
 
     @And("Visualizo la columna {string} con valor {string}")
     public void visualizoLaColumnaConValor(String columna, String valor) {
-        pageComputers.pageObject(). validarDatoColumna(columna,valor);
+        page.pageObject().validarDatoColumna(columna,valor);
+    }
+
+    @And("Visualizo el link {string}")
+    public void visualizoElLink(String link) {
+        page.pageObject().validarLink(link);
+    }
+
+    @When("Presiono el link {string}")
+    public void presionoElLink(String link) {
+        page.pageObject().presionarLink(link);
     }
 }

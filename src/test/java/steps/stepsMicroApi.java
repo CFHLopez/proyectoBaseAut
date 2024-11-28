@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import org.apache.http.util.Asserts;
 
 import static constants.Constants.*;
+import static io.restassured.path.json.JsonPath.from;
 import static utils.GenericosMS.*;
 import static utils.microServicios.peticionMS;
 
@@ -29,6 +30,13 @@ public class stepsMicroApi {
     @When("Valido el campo {string} con valor {string}")
     public void validoElCampoConValor(String campo, String valor) {
         validarCampo(campo,valor);
+    }
+
+    @And("Valido el campo {string} con valor")
+    public void validoElCampoConValor(String campo) {
+        String respuesta = from(bodyrest).getString(pathMS+campo);
+        System.out.println(respuesta);
+        Asserts.notNull(respuesta,"OK -> "+respuesta);
     }
 
     @Then("Valido la respuesta de la peticion")
@@ -54,4 +62,6 @@ public class stepsMicroApi {
     public void validoElCampoCodigoStatusConValor(String valor) {
         validarStatusCode(valor);
     }
+
+
 }

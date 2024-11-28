@@ -21,6 +21,7 @@ public abstract class Constants {
     public static WebDriver driverWeb;
     public static String rutaDescarga = "";
     public static boolean buscarPorID = false;
+    public static boolean pruebaFront = false;
 
     /** OTROS **/
 }

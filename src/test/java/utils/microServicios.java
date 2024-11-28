@@ -31,6 +31,7 @@ public class microServicios {
     private static void obtenerRespuesta(){
         codigoStatus = respuestaMS.getStatusCode();
         bodyrest = respuestaMS.asString();
+        System.out.println(bodyrest);
     }
 
     private static void peticionGET(String urlMS){

@@ -1,6 +1,5 @@
 package steps;
 
-import io.cucumber.core.api.Scenario;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
@@ -20,6 +19,8 @@ public class cucumberHooks {
         codigoStatus = 0;
         buscarPorID = false;
         System.out.println("Prueba finalizada");
-        driverWeb.quit();
+        if (pruebaFront){
+            driverWeb.quit();
+        }
     }
 }

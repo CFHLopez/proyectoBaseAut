@@ -5,14 +5,18 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -23,45 +27,76 @@ public class web {
     private static int cantidadColumsGrilla1 = 0;
     private static int numColumTabla1 = 0;
     private static int filaBuscadaOp1 = 0;
+    private static final File root = new File("driverNavegador");
 
-    public static void levantarWeb (String url){
+    private static void setearDriver(String navegador){
+        switch (navegador){
+            case "Chrome":
+            case "ChromeDriverless":
+                webDriverNoRemoto("chromedriver","chrome");
+                break;
+            case "Edge":
+                webDriverNoRemoto("msedgedriver","edge");
+                break;
+        }
+    }
+
+    private static void webDriverNoRemoto(String nombreDriver, String nombreWeb){
+        String extension = "";
+        String sistemOp = System.getProperty("os.name").toLowerCase();
+        if (!sistemOp.contains("mac") && !sistemOp.contains("linux")) {
+            extension = ".exe";
+        }
+        File driverPath = new File(root, nombreDriver+extension);
+        System.setProperty("webdriver."+nombreWeb+".driver", driverPath.getAbsolutePath());
+    }
+
+    public static void levantarWeb (String navegador, String url){
         try {
-            String extension = "";
-            String sistemOp = System.getProperty("os.name").toLowerCase();
-            if (!sistemOp.contains("mac") && !sistemOp.contains("linux")) {
-                extension = ".exe";
-            }
-            File root = new File("driverNavegador");
-            File driverPath = new File(root, "chromedriver"+extension);
-            System.setProperty("webdriver.chrome.driver", driverPath.getAbsolutePath());
-
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--disable-notifications");
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-dev-shm-usage");
-            options.setCapability("acceptSslCerts", true);
-            options.setCapability("acceptInsecureCerts", true);
+            setearDriver(navegador);
+            Map<String, Object> preferencias = new HashMap<>();
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability(ChromeOptions.CAPABILITY,options);
 
-            HashMap<String, Object> preferencias = new HashMap<>();
             preferencias.put("profile.default_content_settings.popups", 0);
             preferencias.put("profile.default_content_setting.values.notifications", 2);
             preferencias.put("profile.default_content_setting_values.automatic_downloads", 1);
             preferencias.put("profile.content_settings.exceptions.automatic_downloads.*.setting", 1);
-            preferencias.put("download.default_directory",root.getAbsolutePath());
-            rutaDescarga =root.getAbsolutePath();
-            System.out.println("RUTA DESCARGA: "+ rutaDescarga);
+            preferencias.put("download.default_directory", root.getAbsolutePath());
             preferencias.put("download.prompt_for_download", false);
 
             LoggingPreferences logs = new LoggingPreferences();
             logs.enable("performance", Level.ALL);
             logs.enable("browser", Level.ALL);
-            options.setCapability("loggingPrefs", logs);
-            options.setExperimentalOption("prefs", preferencias);
 
-            driverWeb = new ChromeDriver(options);
-            capabilities.setBrowserName("Chrome");
+            switch (navegador){
+                case "Chrome":
+                case "ChromeDriverless":
+                    ChromeOptions opChrome = new ChromeOptions();
+                    opChrome.addArguments("--allow-running-insecure-content");
+                    // HABILITAR WEB NO SEGURA
+                    opChrome.addArguments("--guest");
+                    opChrome.setCapability("loggingPrefs", logs);
+                    opChrome.setExperimentalOption("prefs", preferencias);
+                    capabilities.setCapability(ChromeOptions.CAPABILITY,opChrome);
+                    driverWeb = new ChromeDriver(opChrome);
+                    capabilities.setBrowserName("Chrome");
+                    break;
+                case "Edge":
+                    EdgeOptions opEdge = new EdgeOptions();
+                    // HABILITAR WEB NO SEGURA
+                    opEdge.setCapability("ms:edgeOptions",new HashMap<String,Object>(){
+                        {
+                            put("args", Arrays.asList("--ignore-certificate-errors","--allow-running-insecure-content"));
+                        }
+                    });
+                    driverWeb = new EdgeDriver(opEdge);
+                    capabilities.setBrowserName("Microsoft Edge");
+                    break;
+                default:
+                    System.exit(1);
+            }
+
+            capabilities.setBrowserName(navegador);
             driverWeb.manage().window().maximize();
             driverWeb.get(url);
         } catch (Exception e){
@@ -177,7 +212,7 @@ public class web {
         int fila = 0;
         try {
             boolean encontrado = false;
-            if (listaGrilla.size() == 0){
+            if (listaGrilla.isEmpty()){
                 System.exit(1);
             }
             for (int i=numColumTabla1;i<listaGrilla.size();i=i+cantidadColumsGrilla1) {

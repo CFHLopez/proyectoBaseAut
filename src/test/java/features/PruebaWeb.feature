@@ -1,3 +1,8 @@
+# Autor: Christian F. H. López Chávez
+# Automatizador: Christian F. H. López Chávez
+# Fecha: 04/09/2024
+# Última modificación: 27/11/2024
+
 Feature: Pruebas Front
   Background:
     Given Ingreso a la web "https://computer-database.gatling.io/computers"
