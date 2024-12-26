@@ -1,22 +1,23 @@
-package pages;
+package pages.web;
 
 import org.apache.http.util.Asserts;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.GenericoObjetosWeb;
 
 import java.util.List;
 
 import static constants.Constants.buscarPorID;
-import static constants.Constants.driverWeb;
+import static utils.GenericoListasWeb.*;
 import static utils.GenericoObjetosWeb.*;
-import static utils.GenericoLevantarWeb.*;
+import static utils.MetodosGenericos.esperar;
 
 public class pageComputersWeb implements pageComputers{
 
     public pageComputersWeb() {
-        PageFactory.initElements(driverWeb, this);
+        PageFactory.initElements(GenericoObjetosWeb.getDriverWeb(), this);
     }
 
     /** ELEMENTOS WEB **/
@@ -55,7 +56,7 @@ public class pageComputersWeb implements pageComputers{
         if (nombreBtn.equalsIgnoreCase("add")){
             btn = btnAdd;
         }
-        Asserts.check(viewObjeto(btn,2),"OK -> "+nombreBtn);
+        Asserts.check(verObjeto(btn,2),"OK -> "+nombreBtn);
         enmarcarObjeto(btn);
         System.out.println("Enmarcar");
         desenmarcarObjeto(btn);
@@ -65,14 +66,14 @@ public class pageComputersWeb implements pageComputers{
     }
 
     public void viewFiltro (){
-        Asserts.check(viewObjeto(filtroBuscar,2),"OK -> Filtro");
+        Asserts.check(verObjeto(filtroBuscar,2),"OK -> Filtro");
         enmarcarObjeto(filtroBuscar);
         esperar(2);
         desenmarcarObjeto(filtroBuscar);
     }
 
     public void viewTabla (){
-        Asserts.check(viewObjeto(tablaComputers,2),"OK -> Tabla");
+        Asserts.check(verObjeto(tablaComputers,2),"OK -> Tabla");
         enmarcarObjeto(tablaComputers);
         esperar(2);
         desenmarcarObjeto(tablaComputers);

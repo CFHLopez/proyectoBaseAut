@@ -6,11 +6,13 @@ import java.util.List;
 
 import static constants.Constants.*;
 import static io.restassured.path.json.JsonPath.from;
+import static utils.MetodosGenericos.imprimirConsolaMsjPositivoMorado;
+import static utils.MetodosGenericos.imprimirConsolaMsjPositivoVerde;
 
 public class GenericosMS {
     public static void validarCampo (String campo,String valor){
         String path = pathMS+campo+pathFinal;
-        System.out.println(path);
+        imprimirConsolaMsjPositivoVerde(path);
         try {
             if (isList(path)){
                 validarListaString(path,valor);
@@ -44,7 +46,7 @@ public class GenericosMS {
         boolean resultado;
         try {
             int resultadoInt = from(bodyrest).getInt(get);
-            System.out.println("Int: "+resultadoInt);
+            imprimirConsolaMsjPositivoVerde("Int: "+resultadoInt);
             resultado = true;
         } catch (Exception e){
             resultado = false;
@@ -60,7 +62,7 @@ public class GenericosMS {
         boolean resultado;
         try {
             float resultadoFloat = from(bodyrest).get(get);
-            System.out.println("Float: "+resultadoFloat);
+            imprimirConsolaMsjPositivoVerde("Float: "+resultadoFloat);
             resultado = true;
         } catch (RuntimeException excepcion){
             resultado = false;
@@ -76,7 +78,7 @@ public class GenericosMS {
         try {
             List<String> listaIds = from(bodyrest).get(path);
             boolean esLista = listaIds != null && listaIds.size() != 1;
-            System.out.println("Lista?: "+esLista);
+            imprimirConsolaMsjPositivoMorado("Lista?: "+esLista);
             return esLista;
         } catch (Exception e){
             return false;
@@ -128,7 +130,7 @@ public class GenericosMS {
         boolean campoEncontrado = false;
         List<String> listaID = from(bodyrest).get(path);
         for (String campo2 : listaID){
-            System.out.println(campo2);
+            imprimirConsolaMsjPositivoVerde(campo2);
             if (campo2.equals(valor)){
                 campoEncontrado = true;
                 break;
@@ -141,7 +143,7 @@ public class GenericosMS {
         boolean campoEncontrado = false;
         List<Integer> listaID = from(bodyrest).get(path);
         for (int campo2 : listaID){
-            System.out.println(campo2);
+            imprimirConsolaMsjPositivoVerde(String.valueOf(campo2));
             if (campo2 == Integer.parseInt(valor)){
                 campoEncontrado = true;
                 break;
@@ -154,7 +156,7 @@ public class GenericosMS {
         boolean campoEncontrado = false;
         List<Float> listaID = from(bodyrest).get(path);
         for (float campo2 : listaID){
-            System.out.println(campo2);
+            imprimirConsolaMsjPositivoVerde(String.valueOf(campo2));
             if (campo2 == Integer.parseInt(valor)){
                 campoEncontrado = true;
                 break;
@@ -167,7 +169,7 @@ public class GenericosMS {
         try {
             List<String> listaID = from(bodyrest).get(path);
             String primerID = listaID.get(0);
-            System.out.println(primerID);
+            imprimirConsolaMsjPositivoVerde(primerID);
             validarCampoID_String(path,valor);
         } catch (Exception e){
             validarListaInt(path,valor);
@@ -178,7 +180,7 @@ public class GenericosMS {
         try {
             List<Integer> listaID = from(bodyrest).get(path);
             int primerID = listaID.get(0);
-            System.out.println(primerID);
+            imprimirConsolaMsjPositivoVerde(String.valueOf(primerID));
             validarCampoID_Int(path,valor);
         } catch (Exception e){
             validarListaFloat(path,valor);
@@ -189,7 +191,7 @@ public class GenericosMS {
         try {
             List<Float> listaID = from(bodyrest).get(path);
             Float primerID = listaID.get(0);
-            System.out.println(primerID);
+            imprimirConsolaMsjPositivoVerde(String.valueOf(primerID));
             validarCampoID_Float(path,valor);
         } catch (Exception e){
             System.exit(1);

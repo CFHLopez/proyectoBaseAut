@@ -4,11 +4,13 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
 import static constants.Constants.*;
+import static utils.GenericoObjetosWeb.quitDriverWeb;
+import static utils.MetodosGenericos.imprimirConsolaMsjPositivoMorado;
 
 public class cucumberHooks {
     @Before
     public void beforeScenario() {
-        System.out.println("Inicia Prueba");
+        imprimirConsolaMsjPositivoMorado("Inicia Prueba");
     }
 
     @After
@@ -18,9 +20,9 @@ public class cucumberHooks {
         bodyrest = "";
         codigoStatus = 0;
         buscarPorID = false;
-        System.out.println("Prueba finalizada");
+        imprimirConsolaMsjPositivoMorado("Prueba finalizada");
         if (pruebaFront){
-            driverWeb.quit();
+            quitDriverWeb();
         }
     }
 }

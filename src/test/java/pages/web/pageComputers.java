@@ -1,4 +1,4 @@
-package pages;
+package pages.web;
 
 public interface pageComputers {
     static pageComputers pageObject(){

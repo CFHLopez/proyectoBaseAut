@@ -9,7 +9,8 @@ import org.apache.http.util.Asserts;
 import static constants.Constants.*;
 import static io.restassured.path.json.JsonPath.from;
 import static utils.GenericosMS.*;
-import static utils.microServicios.peticionMS;
+import static pages.ms.microServicios.peticionMS;
+import static utils.MetodosGenericos.imprimirConsolaMsjPositivoMorado;
 
 public class stepsMicroApi {
     private static String urlMS = "";
@@ -35,7 +36,7 @@ public class stepsMicroApi {
     @And("Valido el campo {string} con valor")
     public void validoElCampoConValor(String campo) {
         String respuesta = from(bodyrest).getString(pathMS+campo);
-        System.out.println(respuesta);
+        imprimirConsolaMsjPositivoMorado(respuesta);
         Asserts.notNull(respuesta,"OK -> "+respuesta);
     }
 
@@ -62,6 +63,5 @@ public class stepsMicroApi {
     public void validoElCampoCodigoStatusConValor(String valor) {
         validarStatusCode(valor);
     }
-
 
 }

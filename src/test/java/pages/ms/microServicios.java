@@ -1,10 +1,12 @@
-package utils;
+package pages.ms;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 import static constants.Constants.bodyrest;
 import static constants.Constants.codigoStatus;
+import static utils.MetodosGenericos.imprimirConsolaMsjNegativo;
+import static utils.MetodosGenericos.imprimirConsolaMsjPositivoMorado;
 
 public class microServicios {
 
@@ -24,14 +26,14 @@ public class microServicios {
                 peticionDELETE(urlMS);
                 break;
             default:
-                System.out.println("Peticion NO valida");
+                imprimirConsolaMsjNegativo("Peticion NO valida");
         }
     }
 
     private static void obtenerRespuesta(){
         codigoStatus = respuestaMS.getStatusCode();
         bodyrest = respuestaMS.asString();
-        System.out.println(bodyrest);
+        imprimirConsolaMsjPositivoMorado(bodyrest);
     }
 
     private static void peticionGET(String urlMS){
@@ -45,6 +47,7 @@ public class microServicios {
                     .response();
             obtenerRespuesta();
         } catch (Exception e){
+            imprimirConsolaMsjNegativo(e.getMessage());
             System.exit(1);
         }
     }
@@ -60,6 +63,7 @@ public class microServicios {
                     .response();
             obtenerRespuesta();
         } catch (Exception e){
+            imprimirConsolaMsjNegativo(e.getMessage());
             System.exit(1);
         }
     }
@@ -75,6 +79,7 @@ public class microServicios {
                     .response();
             obtenerRespuesta();
         } catch (Exception e){
+            imprimirConsolaMsjNegativo(e.getMessage());
             System.exit(1);
         }
     }
@@ -90,6 +95,7 @@ public class microServicios {
                     .response();
             obtenerRespuesta();
         } catch (Exception e){
+            imprimirConsolaMsjNegativo(e.getMessage());
             System.exit(1);
         }
     }

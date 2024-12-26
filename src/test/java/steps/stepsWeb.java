@@ -3,16 +3,18 @@ package steps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import pages.page;
+import pages.web.page;
 
 import static constants.Constants.pruebaFront;
-import static utils.web.*;
+import static utils.GenericoObjetosWeb.validarPaginaActual;
+import static utils.GenericoObjetosWeb.setUpWeb;
+import static utils.MetodosGenericos.esperar;
 
 public class stepsWeb {
     @Given("Ingreso a la web {string}")
     public void ingresoALaWeb(String url) {
         pruebaFront = true;
-        levantarWeb("Edge",url);
+        setUpWeb("Edge",url);
     }
 
     @Given("Visualizo la web {string}")
