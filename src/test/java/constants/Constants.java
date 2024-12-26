@@ -18,7 +18,6 @@ public abstract class Constants {
     public static String pathFinal = "";
 
     /** WEB **/
-    public static String rutaDescarga = "";
     public static boolean buscarPorID = false;
     public static boolean pruebaFront = false;
 
