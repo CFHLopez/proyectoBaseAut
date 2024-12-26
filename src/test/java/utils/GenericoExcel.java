@@ -173,7 +173,7 @@ public class GenericoExcel {
     public static void validarArchivoExcel (String rutaArchivo){
         try {
             File archivo = new File(rutaArchivo);
-            if (archivo.exists() && archivo.isFile()){
+            if (archivo.exists() && archivo.isFile() && !obtenerPesoArchivo(archivo).isEmpty()){
                 archivoExcel = new FileInputStream(rutaArchivo);
                 imprimirConsolaMsjPositivoVerde("Archivo Encontrado");
             } else {
