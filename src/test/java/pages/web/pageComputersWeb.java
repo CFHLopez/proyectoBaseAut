@@ -10,7 +10,8 @@ import java.util.List;
 
 import static constants.Constants.buscarPorID;
 import static constants.Constants.driverWeb;
-import static utils.web.*;
+import static utils.GenericoObjetosWeb.*;
+import static utils.GenericoLevantarWeb.*;
 
 public class pageComputersWeb implements pageComputers{
 
