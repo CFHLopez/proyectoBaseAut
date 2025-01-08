@@ -1,6 +1,6 @@
 package constants;
 
-import org.openqa.selenium.WebDriver;
+import java.io.FileInputStream;
 
 public abstract class Constants {
     private Constants(){
@@ -21,7 +21,9 @@ public abstract class Constants {
     public static boolean buscarPorID = false;
     public static boolean pruebaFront = false;
 
-    /** OTROS **/
+    /** ARCHIVOS **/
+    public static FileInputStream archivoDescargado;
 
+    /** OTROS **/
     public static int filaBuscadaOp1 = 0;
 }

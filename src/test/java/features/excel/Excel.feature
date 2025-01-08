@@ -8,7 +8,7 @@ Feature: Prueba de Excel sobre Datos Clientes
 #PRIMER CASO
   @PruebaLecturaExcel
   Scenario: Validar columnas del excel de prueba
-    Given Valido el nombre del excel descargado "PruebaExcel.xlsx"
+    Given Valido el nombre del archivo descargado "PruebaExcel.xlsx"
     When Valido la hoja con nombre "Hoja1"
     Then Valido las columnas del excel
     | columna                   |
@@ -25,7 +25,7 @@ Feature: Prueba de Excel sobre Datos Clientes
 #SEGUNDO CASO
   @PruebaLecturaExcel2
   Scenario: Validar columnas con datos en el excel de prueba
-    Given Valido el nombre del excel descargado "PruebaExcel.xlsx"
+    Given Valido el nombre del archivo descargado "PruebaExcel.xlsx"
     When Valido la hoja con nombre "Hoja1"
     Then Valido las columnas con datos del excel
       | columna                   | dato                        |

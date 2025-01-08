@@ -5,8 +5,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,7 +14,6 @@ import static utils.MetodosGenericos.*;
 public class GenericoExcel {
     public GenericoExcel (){}
 
-    private static FileInputStream archivoExcel;
     private static XSSFWorkbook libroExcel;
     private static XSSFSheet hojaExcel;
     private static FormulaEvaluator evaluador;
@@ -30,7 +27,7 @@ public class GenericoExcel {
      */
     private static void abrirExcelEnPagina (String nombreHoja){
         try {
-            libroExcel = new XSSFWorkbook(archivoExcel);
+            libroExcel = new XSSFWorkbook(archivoDescargado);
             hojaExcel = libroExcel.getSheetAt(retornarNumHoja(nombreHoja));
             evaluador = libroExcel.getCreationHelper().createFormulaEvaluator();
         } catch (Exception e){
@@ -69,8 +66,8 @@ public class GenericoExcel {
             if (libroExcel != null){
                 libroExcel.close();
             }
-            if (archivoExcel != null){
-                archivoExcel.close();
+            if (archivoDescargado != null){
+                archivoDescargado.close();
             }
         } catch (Exception e){
             imprimirConsolaMsjNegativo(e.getMessage());
@@ -167,21 +164,6 @@ public class GenericoExcel {
             imprimirConsolaMsjNegativo(e.getMessage());
         } finally {
             cerrarExcel();
-        }
-    }
-
-    public static void validarArchivoExcel (String rutaArchivo){
-        try {
-            File archivo = new File(rutaArchivo);
-            if (archivo.exists() && archivo.isFile() && !obtenerPesoArchivo(archivo).isEmpty()){
-                archivoExcel = new FileInputStream(rutaArchivo);
-                imprimirConsolaMsjPositivoVerde("Archivo Encontrado");
-            } else {
-                imprimirConsolaMsjNegativo("Archivo NO existe");
-                System.exit(1);
-            }
-        } catch (Exception e){
-            imprimirConsolaMsjNegativo(e.getMessage());
         }
     }
 

@@ -1,8 +1,11 @@
 package utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
+
+import static constants.Constants.*;
 
 public class MetodosGenericos {
 
@@ -35,6 +38,21 @@ public class MetodosGenericos {
         } while(tiempoTranscurrido < (long)segundos);
 
         System.out.println("Fin de la espera de " + segundos + " segundos;");
+    }
+
+    public static void validarArchivo (String rutaArchivo){
+        try {
+            File archivo = new File(rutaArchivo);
+            if (archivo.exists() && archivo.isFile() && !obtenerPesoArchivo(archivo).isEmpty()){
+                archivoDescargado = new FileInputStream(rutaArchivo);
+                imprimirConsolaMsjPositivoVerde("Archivo Encontrado");
+            } else {
+                imprimirConsolaMsjNegativo("Archivo NO existe");
+                System.exit(1);
+            }
+        } catch (Exception e){
+            imprimirConsolaMsjNegativo(e.getMessage());
+        }
     }
 
     public static String obtenerPesoArchivo (File rutaArchivo){
